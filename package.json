@@ -11,5 +11,8 @@
   "dependencies": {
     "puppeteer": "^19.8.0"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "dotenv": "^16.0.3"
+  }
 }

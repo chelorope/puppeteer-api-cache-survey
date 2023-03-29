@@ -2,6 +2,9 @@ import puppeteer from "puppeteer";
 import fs from "fs";
 import nodePath from "path";
 import PATHS from "./paths.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const USER_TOKEN =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiOTlmNTQ3ZGMtZmUwYS00ZGEyLWI3ZTQtZTgzZmUzZjA0OWRkIiwiYWNjZXNzTGV2ZWwiOiJtYXJrZXRwbGFjZSIsImxvZ2luVHlwZSI6ImJ1aWx0aW4iLCJ3YWxsZXRBZGRyZXNzIjoiMHg5ZjlmNTI0NWM4ZmNlY2QwNDdkNWJhMzE0YjJjZmY1MmIzMmY4NWI1In0sImlhdCI6MTY3ODgyNTIxOCwiZXhwIjoxNjgxNDE3MjE4fQ.b01Cx4kVcUt9naKMEbsj5JioM_U6INFf9G1rSgeBJ58";
@@ -19,7 +22,7 @@ async function StartScraping(path) {
   const page = await browser.newPage();
   await page.setCookie({
     name: "www_tsb_token",
-    value: USER_TOKEN,
+    value: process.env.USER_TOKEN,
     domain: SANDBOX_API_HOST,
   });
 
