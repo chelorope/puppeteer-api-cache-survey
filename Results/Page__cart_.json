@@ -1,0 +1,21 @@
+{
+  "/feature-flags/flags": {
+    "cloudflareCache": "MISS"
+  },
+  "/csrf-token": {
+    "cloudflareCache": "BYPASS"
+  },
+  "/seasons?amount=3&order=DESC": {
+    "browserCache": "public, max-age=1200",
+    "cloudflareCache": "REVALIDATED"
+  },
+  "/tokenomics/sand-usd-value": {
+    "cloudflareCache": "HIT"
+  },
+  "/contracts/Sand": {
+    "cloudflareCache": "HIT"
+  },
+  "/contracts/Sand?chainId=1": {
+    "cloudflareCache": "HIT"
+  }
+}

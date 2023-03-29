@@ -1,0 +1,27 @@
+{
+  "/feature-flags/flags": {
+    "cloudflareCache": "BYPASS"
+  },
+  "/csrf-token": {
+    "cloudflareCache": "MISS"
+  },
+  "/contracts/Sand": {
+    "cloudflareCache": "HIT"
+  },
+  "/contracts/Sand?chainId=1": {
+    "cloudflareCache": "HIT"
+  },
+  "/seasons?amount=3&order=DESC": {
+    "browserCache": "public, max-age=1200",
+    "cloudflareCache": "REVALIDATED"
+  },
+  "/experiences/list/metaverse?to=576&from=0&type=0": {
+    "cloudflareCache": "EXPIRED"
+  },
+  "/achievements/season/13": {
+    "cloudflareCache": "MISS"
+  },
+  "/gating/locks/": {
+    "cloudflareCache": "EXPIRED"
+  }
+}

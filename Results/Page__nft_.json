@@ -1,0 +1,37 @@
+{
+  "/feature-flags/flags": {
+    "cloudflareCache": "BYPASS"
+  },
+  "/csrf-token": {
+    "cloudflareCache": "MISS"
+  },
+  "/contracts/Sand": {
+    "cloudflareCache": "HIT"
+  },
+  "/contracts/Sand?chainId=1": {
+    "cloudflareCache": "HIT"
+  },
+  "/assettypes/": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "HIT"
+  },
+  "/collections/": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "REVALIDATED"
+  },
+  "/tokenomics/sand-usd-value": {
+    "cloudflareCache": "HIT"
+  },
+  "/assets/search?sections[]=6&sections[]=1&sections[]=2&sortBy=-created&page=0&limit=40&sale=true&includePublic=true&types[]=6&types[]=1&types[]=2&types[]=4&offset=0": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "EXPIRED"
+  },
+  "/seasons?amount=3&order=DESC": {
+    "browserCache": "public, max-age=1200",
+    "cloudflareCache": "REVALIDATED"
+  },
+  "/rarities/": {
+    "browserCache": "public, max-age=3600",
+    "cloudflareCache": "EXPIRED"
+  }
+}

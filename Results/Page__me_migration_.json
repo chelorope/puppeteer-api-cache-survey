@@ -1,0 +1,33 @@
+{
+  "/feature-flags/flags": {
+    "cloudflareCache": "MISS"
+  },
+  "/csrf-token": {
+    "cloudflareCache": "MISS"
+  },
+  "/contracts/Sand": {
+    "cloudflareCache": "HIT"
+  },
+  "/seasons?amount=3&order=DESC": {
+    "browserCache": "public, max-age=1200",
+    "cloudflareCache": "REVALIDATED"
+  },
+  "/contracts/Sand?chainId=1": {
+    "cloudflareCache": "HIT"
+  },
+  "/contracts/Land?chainId=1": {
+    "cloudflareCache": "MISS"
+  },
+  "/contracts/LandNew?chainId=1": {
+    "cloudflareCache": "MISS"
+  },
+  "/social-events?bannerVisualization[]=home&priority=true": {
+    "cloudflareCache": "BYPASS"
+  },
+  "https://strapi.sandbox.game/posts?_sort=published_at:DESC&_limit=2&_start=0&_locale=en&featured=true": {
+    "cloudflareCache": "HIT"
+  },
+  "https://strapi.sandbox.game/posts?_sort=published_at:DESC&_limit=3&_start=0&_locale=en": {
+    "cloudflareCache": "HIT"
+  }
+}

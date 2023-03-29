@@ -1,0 +1,137 @@
+{
+  "/collections/210/logo?_=2023-02-28t15-50-17-000z": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "HIT"
+  },
+  "/collections/206/logo?_=2023-02-13t19-31-06-000z": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "HIT"
+  },
+  "/collections/221/logo?_=2023-03-17t14-21-48-000z": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "HIT"
+  },
+  "/collections/231/logo?_=2023-03-21t14-02-34-000z": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "HIT"
+  },
+  "/collections/193/logo?_=2023-03-10t14-01-20-000z": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "HIT"
+  },
+  "/collections/201/logo?_=2023-02-16t14-33-25-000z": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "EXPIRED"
+  },
+  "/collections/203/logo?_=2023-02-24t11-39-50-000z": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "EXPIRED"
+  },
+  "/collections/208/logo?_=2023-02-23t13-19-58-000z": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "EXPIRED"
+  },
+  "/collections/219/banner?_=2023-03-16t16-25-23-000z": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "HIT"
+  },
+  "/collections/217/banner?_=2023-03-14t13-49-00-000z": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "HIT"
+  },
+  "/collections/235/banner?_=2023-03-27t14-25-43-000z": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "EXPIRED"
+  },
+  "/collections/217/logo?_=2023-03-14t13-49-00-000z": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "EXPIRED"
+  },
+  "/collections/219/logo?_=2023-03-16t16-25-23-000z": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "EXPIRED"
+  },
+  "/collections/235/logo?_=2023-03-27t14-25-43-000z": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "EXPIRED"
+  },
+  "/collections/231/banner?_=2023-03-21t14-02-34-000z": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "HIT"
+  },
+  "/collections/206/banner?_=2023-02-13t19-31-06-000z": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "HIT"
+  },
+  "/collections/189/banner?_=2023-01-31t13-54-09-000z": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "HIT"
+  },
+  "/collections/187/banner?_=2023-01-17t13-53-53-000z": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "HIT"
+  },
+  "/collections/199/logo?_=2023-02-09t15-38-53-000z": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "EXPIRED"
+  },
+  "/collections/208/banner?_=2023-02-23t13-19-58-000z": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "HIT"
+  },
+  "/collections/187/logo?_=2023-01-17t13-53-53-000z": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "EXPIRED"
+  },
+  "/collections/189/logo?_=2023-01-31t13-54-09-000z": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "EXPIRED"
+  },
+  "/collections/221/banner?_=2023-03-17t14-21-48-000z": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "HIT"
+  },
+  "/collections/201/banner?_=2023-02-16t14-33-25-000z": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "HIT"
+  },
+  "/collections/199/banner?_=2023-02-09t15-38-53-000z": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "HIT"
+  },
+  "/collections/210/banner?_=2023-02-28t15-50-17-000z": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "HIT"
+  },
+  "/collections/193/banner?_=2023-03-10t14-01-20-000z": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "HIT"
+  },
+  "/collections/203/banner?_=2023-02-24t11-39-50-000z": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "HIT"
+  },
+  "/feature-flags/flags": {
+    "cloudflareCache": "BYPASS"
+  },
+  "/csrf-token": {
+    "cloudflareCache": "MISS"
+  },
+  "/contracts/Sand": {
+    "cloudflareCache": "HIT"
+  },
+  "/seasons?amount=3&order=DESC": {
+    "browserCache": "public, max-age=1200",
+    "cloudflareCache": "REVALIDATED"
+  },
+  "/assets/search?sections[]=6&sections[]=1&sections[]=2&sortBy=-created&page=0&limit=16&sale=true&includePublic=true&types[]=6&types[]=1&types[]=2&types[]=4&offset=0": {
+    "browserCache": "max-age=3600",
+    "cloudflareCache": "EXPIRED"
+  },
+  "/tokenomics/sand-usd-value": {
+    "cloudflareCache": "HIT"
+  },
+  "/contracts/Sand?chainId=1": {
+    "cloudflareCache": "HIT"
+  }
+}

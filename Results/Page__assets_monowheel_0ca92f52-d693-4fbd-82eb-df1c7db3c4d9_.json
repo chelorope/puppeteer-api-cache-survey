@@ -1,0 +1,31 @@
+{
+  "/assets/0ca92f52-d693-4fbd-82eb-df1c7db3c4d9/model-viewer?bafybeigwpkk3wpkj6cr2suiiyplk4pndz2axdfoqmkprm4bssocbkafd6m": {
+    "browserCache": "public, max-age=31536000",
+    "cloudflareCache": "HIT"
+  },
+  "/feature-flags/flags": {
+    "cloudflareCache": "MISS"
+  },
+  "/csrf-token": {
+    "cloudflareCache": "BYPASS"
+  },
+  "/contracts/Sand": {
+    "cloudflareCache": "HIT"
+  },
+  "/seasons?amount=3&order=DESC": {
+    "browserCache": "public, max-age=1200",
+    "cloudflareCache": "REVALIDATED"
+  },
+  "/contracts/Sand?chainId=1": {
+    "cloudflareCache": "HIT"
+  },
+  "/tokenomics/sand-usd-value": {
+    "cloudflareCache": "HIT"
+  },
+  "/behaviours/": {
+    "cloudflareCache": "BYPASS"
+  },
+  "/assets/inventory?creator=b5a8d4d8-7e89-4cd1-b176-6a52a27a037b&userAddress=0xa96df0584f1f428af1f436b397d78744a9419f64&limit=10&page=1&sale=1&published=1&offset=0": {
+    "cloudflareCache": "BYPASS"
+  }
+}
