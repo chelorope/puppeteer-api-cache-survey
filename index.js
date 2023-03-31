@@ -1,21 +1,60 @@
 import puppeteer from "puppeteer";
 import fs from "fs";
 import nodePath from "path";
+import { fileURLToPath } from "url";
 import PATHS from "./paths.js";
 import dotenv from "dotenv";
 
-dotenv.config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = nodePath.dirname(__filename);
 
-const USER_TOKEN =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiOTlmNTQ3ZGMtZmUwYS00ZGEyLWI3ZTQtZTgzZmUzZjA0OWRkIiwiYWNjZXNzTGV2ZWwiOiJtYXJrZXRwbGFjZSIsImxvZ2luVHlwZSI6ImJ1aWx0aW4iLCJ3YWxsZXRBZGRyZXNzIjoiMHg5ZjlmNTI0NWM4ZmNlY2QwNDdkNWJhMzE0YjJjZmY1MmIzMmY4NWI1In0sImlhdCI6MTY3ODgyNTIxOCwiZXhwIjoxNjgxNDE3MjE4fQ.b01Cx4kVcUt9naKMEbsj5JioM_U6INFf9G1rSgeBJ58";
-const SANDBOX_API_HOST = "api.sandbox.game";
-const SANDBOX_FE_HOST = "www.sandbox.game";
+dotenv.config();
+const ENVIRONMENTS = {
+  local: {
+    apiHost: "localhost:8081",
+    feHost: "localhost:8080",
+    protocol: "http",
+  },
+  dev2: {
+    apiHost: "api-dev2.sandbox.game",
+    feHost: "dev2.sandbox.game",
+    protocol: "https",
+  },
+  develop: {
+    apiHost: "api-develop.sandbox.game",
+    feHost: "develop.sandbox.game",
+    protocol: "https",
+  },
+  demo: {
+    apiHost: "api-demo.sandbox.game",
+    feHost: "demo.sandbox.game",
+    protocol: "https",
+  },
+  staging: {
+    apiHost: "api-staging.sandbox.game",
+    feHost: "staging.sandbox.game",
+    protocol: "https",
+  },
+  production: {
+    apiHost: "api.sandbox.game",
+    feHost: "www.sandbox.game",
+    protocol: "https",
+  },
+};
+
+const CURRENT_ENVIRONMENT = process.env.ENVIRONMENT || "dev2";
+
+const {
+  apiHost: API_HOST,
+  feHost: FE_HOST,
+  protocol: PROTOCOL,
+} = ENVIRONMENTS[CURRENT_ENVIRONMENT];
 
 const browser = await puppeteer.launch({
   headless: false,
 });
 
-async function StartScraping(path) {
+async function StartScraping(path, section) {
   const responses = {};
   let requestResolved = false;
   let requestCount = 0;
@@ -23,24 +62,28 @@ async function StartScraping(path) {
   await page.setCookie({
     name: "www_tsb_token",
     value: process.env.USER_TOKEN,
-    domain: SANDBOX_API_HOST,
+    domain: API_HOST,
   });
-
   await page.setViewport({
     width: 1366,
     height: 768,
   });
+
   page.on("request", async (request) => {
     if (
-      request.url().includes(SANDBOX_API_HOST) &&
+      request.url().includes(API_HOST) &&
       !request.url().includes("cdn-cgi")
     ) {
       requestCount++;
     }
   });
+  // await page.goto(`https://${FE_HOST}`, {
+  //   waitUntil: "load",
+  //   timeout: 0,
+  // });
   page.on("response", async (response) => {
     if (
-      response.url().includes(SANDBOX_API_HOST) &&
+      response.url().includes(API_HOST) &&
       !response.url().includes("cdn-cgi")
     ) {
       requestCount--;
@@ -51,18 +94,20 @@ async function StartScraping(path) {
         const headers = response.headers();
         const responseURL = response
           .url()
-          .replace(`https://${SANDBOX_API_HOST}`, "");
+          .replace(`${PROTOCOL}://${API_HOST}`, "");
         responses[responseURL] = {
           ...(headers["cache-control"]
             ? { browserCache: headers["cache-control"] }
             : {}),
-          cloudflareCache: headers["cf-cache-status"],
+          ...(headers["cdn-cache-control"]
+            ? { cloudflareCache: headers["cdn-cache-control"] }
+            : {}),
+          cloudflareCacheStatus: headers["cf-cache-status"],
         };
       }
     }
   });
-
-  await page.goto(`https://${SANDBOX_FE_HOST}${path}`, {
+  await page.goto(`${PROTOCOL}://${FE_HOST}${path}`, {
     waitUntil: "load",
     timeout: 0,
   });
@@ -75,11 +120,22 @@ async function StartScraping(path) {
       }
     }, 10000);
   });
+  const dir = nodePath.join(__dirname, "Results", CURRENT_ENVIRONMENT, section);
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
   await fs.promises.writeFile(
-    `./Results/Page_${path === "/" ? "_Home" : path.replace(/\//g, "_")}.json`,
+    nodePath.join(
+      dir,
+      `Page_${path === "/" ? "_Home" : path.replace(/\//g, "_")}.json`
+    ),
     JSON.stringify(responses, null, 2)
   );
 }
-Promise.all(PATHS.map((path) => StartScraping(path))).then(async () => {
+Promise.all(
+  Object.keys(PATHS).map((section) =>
+    Promise.all(PATHS[section].map((path) => StartScraping(path, section)))
+  )
+).then(async () => {
   browser.close();
 });
