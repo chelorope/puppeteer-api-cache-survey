@@ -77,10 +77,10 @@ const cart = [
 ];
 
 export default {
-  home,
+  // home,
   // season,
   // map,
-  // market,
+  market,
   // blog,
   // user,
   // create,
