@@ -18,6 +18,7 @@ const map = [
 ];
 const market = [
   // Market
+  "/assets/raptor/95a49a2a-8b57-4345-8380-cd3358c2930c/",
   "/assets/monowheel/0ca92f52-d693-4fbd-82eb-df1c7db3c4d9/",
   "/avatars/",
   "/avatars/octohedz-vx/206/",
@@ -77,15 +78,15 @@ const cart = [
 ];
 
 export default {
-  // home,
-  // season,
-  // map,
+  home,
+  season,
+  map,
   market,
-  // blog,
-  // user,
-  // create,
-  // about,
-  // landsale,
-  // cart,
-  // agencies,
+  blog,
+  user,
+  create,
+  about,
+  landsale,
+  cart,
+  agencies,
 };
