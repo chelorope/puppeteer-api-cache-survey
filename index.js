@@ -14,31 +14,37 @@ const ENVIRONMENTS = {
     apiHost: "localhost:8081",
     feHost: "localhost:8080",
     protocol: "http",
+    tokenCookie: "tsb_local_token",
   },
   dev2: {
     apiHost: "api-dev2.sandbox.game",
     feHost: "dev2.sandbox.game",
     protocol: "https",
+    tokenCookie: "tsb_dev2_token",
   },
   develop: {
     apiHost: "api-develop.sandbox.game",
     feHost: "develop.sandbox.game",
     protocol: "https",
+    tokenCookie: "tsb_develop_token",
   },
   demo: {
     apiHost: "api-demo.sandbox.game",
     feHost: "demo.sandbox.game",
     protocol: "https",
+    tokenCookie: "tsb_demo_token",
   },
   staging: {
     apiHost: "api-staging.sandbox.game",
     feHost: "staging.sandbox.game",
     protocol: "https",
+    tokenCookie: "tsb_staging_token",
   },
   production: {
     apiHost: "api.sandbox.game",
     feHost: "www.sandbox.game",
     protocol: "https",
+    tokenCookie: "tsb_www_token",
   },
 };
 
@@ -48,6 +54,7 @@ const {
   apiHost: API_HOST,
   feHost: FE_HOST,
   protocol: PROTOCOL,
+  tokenCookie: TOKEN_COOKIE_NAME,
 } = ENVIRONMENTS[CURRENT_ENVIRONMENT];
 
 const browser = await puppeteer.launch({
@@ -61,52 +68,54 @@ async function goToPageAndWaitForRequests(
   console.log("GOING TO", pageURL);
   let requestResolved = false;
   let requestCount = 0;
-  page.on("request", async (request) => {
-    if (
-      request.url().includes(API_HOST) &&
-      !request.url().includes("cdn-cgi")
-    ) {
-      requestCount++;
-    }
-  });
-  page.on("response", async (response) => {
-    if (
-      response.url().includes(API_HOST) &&
-      !response.url().includes("cdn-cgi")
-    ) {
-      requestCount--;
-
-      requestCount < 0 && console.log("REQUEST", requestCount, path);
-      requestResolved = true;
-      onResponse(response);
-    }
-  });
-  if (navigate) {
-    await page.evaluate((pageURL) => {
-      window.$nuxt.$router.push(pageURL);
-    }, pageURL);
-    await page.waitForNavigation();
-  } else {
-    await page.goto(pageURL, {
-      waitUntil: "load",
-      timeout: 0,
-    });
-  }
-  await new Promise((resolve) => {
-    const interval = setInterval(() => {
-      if (requestResolved && requestCount === 0) {
-        clearInterval(interval);
-        resolve();
+  let requestsDebugger = {};
+  try {
+    page.on("request", async (request) => {
+      if (request.url().includes(API_HOST)) {
+        requestCount++;
+        requestsDebugger[request.url()] = true;
       }
-    }, 10000);
-  });
+    });
+    page.on("response", async (response) => {
+      if (response.url().includes(API_HOST)) {
+        requestCount--;
+        delete requestsDebugger[response.url()];
+
+        requestCount < 0 && console.log("REQUEST", requestCount, pageURL);
+        requestResolved = true;
+        onResponse(response);
+      }
+    });
+    if (navigate) {
+      await page.evaluate((pageURL) => {
+        window.$nuxt.$router.push(pageURL);
+      }, pageURL);
+      await page.waitForNavigation();
+    } else {
+      await page.goto(pageURL, {
+        waitUntil: "load",
+        timeout: 0,
+      });
+    }
+    await new Promise((resolve) => {
+      const interval = setInterval(() => {
+        if (requestResolved && requestCount === 0) {
+          clearInterval(interval);
+          resolve();
+        }
+      }, 10000);
+    });
+  } catch (e) {
+    console.error("ERROR", pageURL, requestsDebugger);
+    // throw e;
+  }
 }
 
 async function StartScraping(path, section) {
   const results = {};
   const page = await browser.newPage();
   await page.setCookie({
-    name: "www_tsb_token",
+    name: TOKEN_COOKIE_NAME,
     value: process.env.USER_TOKEN,
     domain: API_HOST,
   });
@@ -115,7 +124,10 @@ async function StartScraping(path, section) {
     height: 768,
   });
 
-  await goToPageAndWaitForRequests({ pageURL: `https://${FE_HOST}`, page });
+  await goToPageAndWaitForRequests({
+    pageURL: `https://${FE_HOST}${path === "/" ? "/map" : ""}`,
+    page,
+  });
   await goToPageAndWaitForRequests(
     {
       pageURL: path,
@@ -123,7 +135,7 @@ async function StartScraping(path, section) {
       navigate: true,
     },
     (response) => {
-      if (response.status() == 200) {
+      if (response.status() == 200 && !response.url().includes("cdn-cgi")) {
         const headers = response.headers();
         const responseURL = response
           .url()
