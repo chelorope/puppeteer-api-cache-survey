@@ -70,12 +70,14 @@ async function goToPageAndWaitForRequests(
   let requestCount = 0;
   let requestsDebugger = {};
   try {
+    // Listen for requests and add to the request count
     page.on("request", async (request) => {
       if (request.url().includes(API_HOST)) {
         requestCount++;
         requestsDebugger[request.url()] = true;
       }
     });
+    // Listen for responses and remove from the request count
     page.on("response", async (response) => {
       if (response.url().includes(API_HOST)) {
         requestCount--;
@@ -83,9 +85,11 @@ async function goToPageAndWaitForRequests(
 
         requestCount < 0 && console.log("REQUEST", requestCount, pageURL);
         requestResolved = true;
+        // Execute the onResponse function
         onResponse(response);
       }
     });
+    // Navigate to the page or reload
     if (navigate) {
       await page.evaluate((pageURL) => {
         window.$nuxt.$router.push(pageURL);
@@ -97,6 +101,8 @@ async function goToPageAndWaitForRequests(
         timeout: 0,
       });
     }
+
+    // Wait for all requests to finish
     await new Promise((resolve) => {
       const interval = setInterval(() => {
         if (requestResolved && requestCount === 0) {
@@ -157,7 +163,6 @@ async function StartScraping(path, section) {
 }
 
 async function saveResults(results, path, section) {
-  // Save Files
   const dir = nodePath.join(__dirname, "Results", CURRENT_ENVIRONMENT, section);
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
